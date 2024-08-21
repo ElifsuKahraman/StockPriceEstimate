@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileRead {
-    ArrayList<String> dataArray=new ArrayList<>();
+    ArrayList<Double> priceArray = new ArrayList<>();
+    ArrayList<Data> dataArray = new ArrayList<>();
+    double price;
+    String date;
     File file;
-    public FileRead(File file){
-        this.file=file;
+
+    public FileRead(File file) {
+        this.file = file;
     }
 
-    public void readAllData()
-    {
+    public void readAllData() {
         try {
             FileReader filereader = new FileReader(file);
             CSVReader csvReader = new CSVReaderBuilder(filereader)
@@ -22,22 +25,20 @@ public class FileRead {
             List<String[]> allData = csvReader.readAll();
 
             for (String[] row : allData) {
-                String price = row[1];
-                System.out.println("Fiyat: " + (Double.parseDouble(price)));
-//                for (String cell : row) {
-//                    //System.out.print(cell + "\t");
-//                }
-                dataArray.add(price);
+                price = Double.parseDouble(row[1]);
+                date=row[0];
+                System.out.println("Fiyat: " + price);
+                Data data=new Data(price,date);
+                priceArray.add(price);
+                dataArray.add(data);
             }
 
-
-        }catch (Exception e) {
+//           for(Data data:dataArray){
+//               System.out.println(data);
+//           }
+        } catch (Exception e) {
             e.printStackTrace();
+
         }
     }
-
-
-
-
-
 }
