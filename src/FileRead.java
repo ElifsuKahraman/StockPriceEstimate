@@ -16,6 +16,12 @@ public class FileRead {
         this.file = file;
     }
 
+    public void checkData() {
+        if (file != null && !file.exists()) {
+            file.isDirectory();
+        }
+    }
+
     public void readAllData() {
         try {
             FileReader filereader = new FileReader(file);
